@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+<div class="container">
+    <div class="caixa-login">
+        <h1>PURE</h1>
+        <p class="subtitulo">Plataforma Unificada de Reservas Esportivas</p>
+
+    <form (ngSubmit)="aoLogar()" #loginForm="ngForm">
+
+    <div class="grupo-input">
+        <label for="email">E-mail</label>
+        <input type="email"
+         id="email"
+         name="email"
+         [(ngModel)]="dadosLogin.email"
+           placeholder="E-mail" required>
+    </div>
+    <div class="grupo-input">
+        <label for="senha">Senha</label>
+        <input type="password"
+        id="senha"
+        name="senha"
+        [(ngModel)]="dadosLogin.senha"
+        placeholder="Senha"
+        required>
+    </div>
+
+    <div class="grupo-input">
+        <label for="tipoUsuario">Tipo de usuário</label>
+
+        <select id="tipoUsuario" name="tipoUsuario" [(ngModel)]="dadosLogin.tipoUsuario">
+  <option value="USUARIO">Usuario</option>
+  <option value="INSTRUTOR">Instrutor</option>
+  <option value="ADMINISTRADOR">Administrador</option>
+</select>
+    </div>
+
+    <button type="submit" [disabled]="!loginForm.form.valid">
+        Entrar
+    </button>
+    </form>
+    <div class="links">
+        <a routerLink="/cadastro-usuario">Criar conta</a>
+        <a routerLink="/recuperar-senha">Esqueci minha senha</a>
+    </div>
+    </div>
+</div>
+
+</body>
+</html>
