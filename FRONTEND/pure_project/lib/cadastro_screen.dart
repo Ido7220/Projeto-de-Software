@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pure_project/login_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class CadastroScreen extends StatefulWidget {
@@ -125,7 +126,8 @@ class _CadastroScreenState extends State<CadastroScreen> {
                       Icons.person_outlined,
                     ),
                     validator: (valor) {
-                      if (valor == null || valor.isEmpty) return 'Informe seu nome';
+                      if (valor == null || valor.isEmpty)
+                        return 'Informe seu nome';
                       if (valor.length < 3) return 'Nome muito curto';
                       return null;
                     },
@@ -142,7 +144,8 @@ class _CadastroScreenState extends State<CadastroScreen> {
                       Icons.email_outlined,
                     ),
                     validator: (valor) {
-                      if (valor == null || valor.isEmpty) return 'Informe o e-mail';
+                      if (valor == null || valor.isEmpty)
+                        return 'Informe o e-mail';
                       if (!valor.contains('@')) return 'E-mail inválido';
                       return null;
                     },
@@ -157,7 +160,8 @@ class _CadastroScreenState extends State<CadastroScreen> {
                       Icons.lock_outlined,
                     ),
                     validator: (valor) {
-                      if (valor == null || valor.isEmpty) return 'Informe a senha';
+                      if (valor == null || valor.isEmpty)
+                        return 'Informe a senha';
                       if (valor.length < 3) return 'Senha deve ter ao menos 3';
                       return null;
                     },
@@ -213,7 +217,10 @@ class _CadastroScreenState extends State<CadastroScreen> {
 
                   Center(
                     child: TextButton(
-                      onPressed: () => Navigator.pop(context),
+                      onPressed: () => Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginScreen()),
+                      ),
                       child: const Text('Já tenho conta — Fazer login'),
                     ),
                   ),
