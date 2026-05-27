@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pure_project/cadastro_screen.dart';
+import 'package:pure_project/reserva_screen.dart';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -20,6 +21,10 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
       home: CadastroScreen(),
+      routes: {
+        '/home': (context) => const ReservaScreen(),
+        '/cadastro': (context) => const CadastroScreen(),
+      },
     );
   }
 }
