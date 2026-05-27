@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Container(
             padding: const EdgeInsets.all(24.0),
             decoration: BoxDecoration(
-              color: Colors.blue,
+              color: Colors.white,
               borderRadius: BorderRadius.circular(12),
             ),
             child: Column(
@@ -128,7 +128,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                 const SizedBox(height: 16),
 
-                // Link para ir para a tela de Cadastro
                 TextButton(
                   onPressed: () => Navigator.pushNamed(context, '/cadastro'),
                   child: const Text('Não tem uma conta? Cadastre-se'),
