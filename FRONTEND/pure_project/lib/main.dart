@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pure_project/cadastro_screen.dart';
-import 'package:pure_project/reserva_screen.dart';
+import 'package:pure_project/tela_cadastro.dart';
+import 'package:pure_project/tela_login.dart';
+import 'package:pure_project/tela_servicos_home.dart';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -20,10 +21,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
-      home: CadastroScreen(),
+      home: TelaLogin(),
       routes: {
-        '/home': (context) => const ReservaScreen(),
-        '/cadastro': (context) => const CadastroScreen(),
+        '/home': (context) => const TelaServicosHome(),
+        '/cadastro': (context) => const TelaCadastro(),
       },
     );
   }

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:pure_project/login_screen.dart';
+import 'package:pure_project/tela_login.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class CadastroScreen extends StatefulWidget {
-  const CadastroScreen({super.key});
+class TelaCadastro extends StatefulWidget {
+  const TelaCadastro({super.key});
 
   @override
-  State<CadastroScreen> createState() => _CadastroScreenState();
+  State<TelaCadastro> createState() => _CadastroScreenState();
 }
 
-class _CadastroScreenState extends State<CadastroScreen> {
+class _CadastroScreenState extends State<TelaCadastro> {
   final _formKey = GlobalKey<FormState>();
 
   final _nomeController = TextEditingController();
@@ -126,9 +126,13 @@ class _CadastroScreenState extends State<CadastroScreen> {
                       Icons.person_outlined,
                     ),
                     validator: (valor) {
-                      if (valor == null || valor.isEmpty)
+                      if (valor == null || valor.isEmpty) {
                         return 'Informe seu nome';
-                      if (valor.length < 3) return 'Nome muito curto';
+                      }
+
+                      if (valor.length < 3) {
+                        return 'Nome muito curto';
+                      }
                       return null;
                     },
                   ),
@@ -144,9 +148,12 @@ class _CadastroScreenState extends State<CadastroScreen> {
                       Icons.email_outlined,
                     ),
                     validator: (valor) {
-                      if (valor == null || valor.isEmpty)
+                      if (valor == null || valor.isEmpty) {
                         return 'Informe o e-mail';
-                      if (!valor.contains('@')) return 'E-mail inválido';
+                      }
+                      if (!valor.contains('@')) {
+                        return 'E-mail inválido';
+                      }
                       return null;
                     },
                   ),
@@ -160,9 +167,12 @@ class _CadastroScreenState extends State<CadastroScreen> {
                       Icons.lock_outlined,
                     ),
                     validator: (valor) {
-                      if (valor == null || valor.isEmpty)
+                      if (valor == null || valor.isEmpty) {
                         return 'Informe a senha';
-                      if (valor.length < 3) return 'Senha deve ter ao menos 3';
+                      }
+                      if (valor.length < 3) {
+                        return 'Senha deve ter ao menos 3';
+                      }
                       return null;
                     },
                   ),
@@ -219,7 +229,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                     child: TextButton(
                       onPressed: () => Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()),
+                        MaterialPageRoute(builder: (context) => TelaLogin()),
                       ),
                       child: const Text('Já tenho conta — Fazer login'),
                     ),
