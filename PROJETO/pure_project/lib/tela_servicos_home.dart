@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pure_project/minhas_reservas.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class TelaServicosHome extends StatefulWidget {
@@ -13,11 +14,68 @@ class _TelaServicosHomeState extends State<TelaServicosHome> {
       .from('registros_esportes')
       .stream(primaryKey: ['id']);
 
+  Future<void> _deslogar() async {
+    try {
+      await Supabase.instance.client.auth.signOut();
+
+      if (!mounted) return;
+
+      Navigator.pushReplacementNamed(context, '/login');
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Erro ao sair: $e')));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Serviços'),
+        actions: [
+          PopupMenuButton<String>(
+            onSelected: (value) {
+              switch (value) {
+                case 'perfil':
+                  debugPrint('Navegar para Perfil');
+                  break;
+                case 'reservas':
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => TelaMinhasReservas(),
+                    ),
+                  );
+
+                  break;
+                case 'sair':
+                  _deslogar();
+                  break;
+              }
+            },
+            icon: CircleAvatar(
+              radius: 16,
+              backgroundColor: Colors.white,
+              child: Icon(Icons.person, color: Colors.white, size: 20),
+            ),
+            itemBuilder: (BuildContext context) => [
+              PopupMenuItem<String>(
+                value: 'perfil',
+                child: ListTile(title: Text('Perfil')),
+              ),
+              PopupMenuItem<String>(
+                value: 'reservas',
+                child: ListTile(title: Text('Minhas reservas')),
+              ),
+              PopupMenuItem<String>(
+                value: 'sair',
+                child: ListTile(title: Text('Sair')),
+              ),
+            ],
+          ),
+        ],
         backgroundColor: Colors.blue,
       ),
       body: Padding(
