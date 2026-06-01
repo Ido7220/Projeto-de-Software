@@ -29,6 +29,36 @@ class _TelaServicosHomeState extends State<TelaServicosHome> {
     }
   }
 
+  Future<void> _fazerInscricao(Map<String, dynamic> item) async {
+    try {
+      final usuario = Supabase.instance.client.auth.currentUser;
+
+      await Supabase.instance.client.from('minhas reservas').insert({
+        'user_id': usuario?.id,
+        'esporte': item['esporte'],
+        'data': item['data'],
+        'horario': item['horario'] ?? item['hora'],
+        'instrutor': item['instrutor'],
+        'local': item['local'],
+      });
+
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Inscrição realizada com sucesso!')),
+      );
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => TelaMinhasReservas()),
+      );
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Erro ao se inscrever: $e')));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -136,13 +166,9 @@ class _TelaServicosHomeState extends State<TelaServicosHome> {
                             Expanded(
                               flex: 3,
                               child: ElevatedButton(
-                                onPressed: () {
-                                  debugPrint(
-                                    'Clicou em inscrever no item: ${item['id']}',
-                                  );
-                                },
+                                onPressed: () => _fazerInscricao(item),
                                 style: ElevatedButton.styleFrom(
-                                  padding: const EdgeInsets.symmetric(
+                                  padding: EdgeInsets.symmetric(
                                     horizontal: 3,
                                     vertical: 0,
                                   ),
