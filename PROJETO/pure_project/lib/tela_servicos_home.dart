@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pure_project/minhas_reservas.dart';
+import 'package:pure_project/tela_pagamento.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class TelaServicosHome extends StatefulWidget {
@@ -31,8 +32,15 @@ class _TelaServicosHomeState extends State<TelaServicosHome> {
     try {
       final usuario = Supabase.instance.client.auth.currentUser;
 
+      if (usuario == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Você precisa estar logado.')),
+        );
+        return;
+      }
+
       await Supabase.instance.client.from('minhas_reservas').insert({
-        'user_id': usuario?.id,
+        'user_id': usuario.id,
         'esporte': item['esporte'],
         'data': item['data'],
         'horario': item['hora'],
@@ -75,8 +83,13 @@ class _TelaServicosHomeState extends State<TelaServicosHome> {
           PopupMenuButton<String>(
             onSelected: (value) {
               switch (value) {
-                case 'perfil':
-                  debugPrint('Navegar para Perfil');
+                case 'pagamento':
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const TelaPagamento(),
+                    ),
+                  );
                   break;
                 case 'reservas':
                   Navigator.push(
@@ -98,10 +111,10 @@ class _TelaServicosHomeState extends State<TelaServicosHome> {
             ),
             itemBuilder: (BuildContext context) => const [
               PopupMenuItem<String>(
-                value: 'perfil',
+                value: 'pagamento',
                 child: ListTile(
-                  leading: Icon(Icons.person_outline),
-                  title: Text('Perfil'),
+                  leading: Icon(Icons.payment),
+                  title: Text('Pagamento'),
                 ),
               ),
               PopupMenuItem<String>(
@@ -142,7 +155,6 @@ class _TelaServicosHomeState extends State<TelaServicosHome> {
             ),
             const Divider(thickness: 2),
             const SizedBox(height: 8),
-
             Expanded(
               child: StreamBuilder<List<Map<String, dynamic>>>(
                 stream: _registrosStream,
@@ -166,7 +178,6 @@ class _TelaServicosHomeState extends State<TelaServicosHome> {
                             color: Colors.redAccent,
                           ),
                           const SizedBox(height: 12),
-
                           Text('Erro: ${snapshot.error}'),
                         ],
                       ),

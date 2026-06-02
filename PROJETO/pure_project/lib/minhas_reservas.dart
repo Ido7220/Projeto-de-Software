@@ -9,7 +9,6 @@ class TelaMinhasReservas extends StatefulWidget {
 }
 
 class _TelaMinhasReservasState extends State<TelaMinhasReservas> {
-  // 1. Pegamos o ID do utilizador atualmente logado no dispositivo
   final String? _idUsuarioLogado =
       Supabase.instance.client.auth.currentUser?.id;
 
