@@ -72,7 +72,6 @@ class _LoginScreenState extends State<TelaLogin> {
               borderRadius: BorderRadius.circular(12),
             ),
             child: Column(
-              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
