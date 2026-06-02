@@ -170,8 +170,8 @@ class _CadastroScreenState extends State<TelaCadastro> {
                       if (valor == null || valor.isEmpty) {
                         return 'Informe a senha';
                       }
-                      if (valor.length < 3) {
-                        return 'Senha deve ter ao menos 3';
+                      if (valor.length < 6) {
+                        return 'Senha deve ter ao menos 6';
                       }
                       return null;
                     },
@@ -210,7 +210,7 @@ class _CadastroScreenState extends State<TelaCadastro> {
                               width: 22,
                               height: 22,
                               child: CircularProgressIndicator(
-                                color: Colors.white,
+                                color: Colors.black,
                                 strokeWidth: 2.5,
                               ),
                             )
